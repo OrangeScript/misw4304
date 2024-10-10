@@ -16,8 +16,8 @@ def health_check():
     return HealthCheck().execute()
 
 
-@blueprint.route("/", methods=["POST"])
-@validate_request_data(createBlacklistDTO)
+@blueprint.route("/blacklists", methods=["POST"])
+#@validate_request_data(createBlacklistDTO)
 def add_email_to_blacklist():
     body = request.get_json()
     response = AddEmailToBlacklist(body).execute()
