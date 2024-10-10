@@ -17,7 +17,7 @@ from src.blueprints.routes import blueprint
 from src.models.model import db
 
 app = Flask(__name__)
-app.register_blueprint(blueprint, name=BLACKLIST_BLUEPRINT)
+app.register_blueprint(blueprint)
 
 
 @app.errorhandler(Exception)
@@ -45,6 +45,7 @@ def setup_database(db_url):
 
 def setup_develop_environment():
     setup_database(DEVELOP_URL_DB)
+    print(f"Server started on development mode at http://{APP_HOST}:{APP_PORT}")
     app.run(host=APP_HOST, port=APP_PORT, debug=True)
 
 

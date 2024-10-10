@@ -4,10 +4,16 @@ from src.models.dto import createBlacklistDTO
 from src.middlewares.validation import validate_request_data
 from src.commands.add_email import AddEmailToBlacklist
 from src.commands.get_email_data import getEmailFromBlacklistData
+from src.commands.health_check import HealthCheck
 
 blueprint = Blueprint(
-    BLACKLIST_BLUEPRINT, __name__, url_prefix=BLACKLIST_BLUEPRINT_PREFIX
+    'operations', __name__
 )
+
+@blueprint.route('/ping', methods = ['GET'])
+def health_check():
+    print('hello world')
+    return HealthCheck().execute()
 
 
 @blueprint.route("/", methods=["POST"])
