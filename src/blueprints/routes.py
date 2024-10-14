@@ -16,6 +16,7 @@ blueprint = Blueprint(
 @validate_request_data(createBlacklistDTO)
 def add_email_to_blacklist():
     body = request.get_json()
+    body["request_ip"] = request.remote_addr
     response = AddEmailToBlacklist(body).execute()
     return jsonify(response["response"]), response["status_code"]
 

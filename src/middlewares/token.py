@@ -1,7 +1,9 @@
 from flask import jsonify, request
 from functools import wraps
 
-PREDEFINED_TOKEN = "token"
+from src.constants.system import APP_TOKEN
+
+PREDEFINED_TOKEN = APP_TOKEN
 
 
 def validate_token(f):

@@ -1,4 +1,5 @@
 from sqlalchemy.exc import SQLAlchemyError
+from werkzeug.middleware.proxy_fix import ProxyFix
 from flask import Flask, jsonify
 from sys import argv
 
@@ -17,7 +18,10 @@ from src.blueprints.routes import blueprint
 from src.models.model import db
 
 app = Flask(__name__)
-app.register_blueprint(blueprint)
+
+app.register_blueprint(blueprint, name=BLACKLIST_BLUEPRINT)
+
+app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_proto=1, x_host=1, x_prefix=1)
 
 
 @app.errorhandler(Exception)

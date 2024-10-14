@@ -3,6 +3,7 @@ from os import getenv
 # Server Configuration
 APP_HOST = "127.0.0.1"
 APP_PORT = getenv("APP_PORT", 3000)
+APP_TOKEN = getenv("APP_TOKEN", "token")
 APP_THREADS = 2
 
 # Environment variables
