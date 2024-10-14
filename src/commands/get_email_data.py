@@ -1,17 +1,13 @@
-import re
-
 from sqlalchemy.exc import SQLAlchemyError
 from src.commands.base_command import BaseCommand
 
-from src.models.model import db, Banned
+from src.models.model import Banned
+from src.utils.validations import is_valid_email
+
 
 class getEmailFromBlacklistData(BaseCommand):
     def __init__(self, email: str):
         self.email = email
-
-    def is_valid_email(self) -> bool:
-        regex = r'^\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b'
-        return re.match(regex, self.email) is not None
 
     def execute(self) -> dict:
         if not self.email:
@@ -20,7 +16,7 @@ class getEmailFromBlacklistData(BaseCommand):
                 "status_code": 400,
             }
 
-        if not self.is_valid_email():
+        if not is_valid_email(self.email):
             return {
                 "response": {"msg": "Invalid email"},
                 "status_code": 400,
@@ -44,16 +40,12 @@ class getEmailFromBlacklistData(BaseCommand):
 
         except SQLAlchemyError as e:
             return {
-                "response": {
-                    "msg": f"An unexpected error occurred: {e}"
-                },
+                "response": {"msg": f"An unexpected error occurred: {e}"},
                 "status_code": 500,
             }
-        
+
         except Exception as e:
             return {
-                "response": {
-                    "msg": f"An unexpected error occurred: {e}"
-                },
+                "response": {"msg": f"An unexpected error occurred: {e}"},
                 "status_code": 500,
             }
