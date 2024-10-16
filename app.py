@@ -54,7 +54,8 @@ def setup_develop_environment():
 
 
 def setup_production_environment():
-    setup_database(PRODUCTION_URL_DB)
+    print(f"Host: {APP_HOST} Port: {APP_PORT} URL: {PRODUCTION_URL_DB}")
+    setup_database(PRODUCTION_URL_DB)    
     print(f"Server started on production mode at http://{APP_HOST}:{APP_PORT}")
     serve(app, host=APP_HOST, port=APP_PORT, threads=APP_THREADS)
 
