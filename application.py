@@ -30,11 +30,11 @@ def handle_offer_creation_error(error):
     response = jsonify({"error": error.message})
     return response, error.status_code
    
-application.config["SQLALCHEMY_DATABASE_URI"] = PRODUCTION_URL_DB
-print("Database setup completed successfully.")  
-
-db.init_app(application)
-db.create_all()
+with application.app_context():
+    application.config["SQLALCHEMY_DATABASE_URI"] = PRODUCTION_URL_DB
+    print("Database setup completed successfully.")  
+    db.init_app(application)
+    db.create_all()
  
 if __name__ == "__main__":
     try:
