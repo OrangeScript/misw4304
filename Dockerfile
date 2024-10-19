@@ -14,4 +14,4 @@ COPY . .
 
 EXPOSE 9000
 
-CMD [ "pipenv", "run", "python", "app.py", "production"]
+CMD [ "pipenv", "run", "python", "app.py", "develop"]

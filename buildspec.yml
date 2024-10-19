@@ -9,7 +9,7 @@ phases:
     commands:
       - echo Build started on `date`
       - echo Building the Docker image...          
-      - docker build -t python-flask:latest .
+      - docker build -t python-flask .
       - docker tag python-flask:latest 233252854073.dkr.ecr.us-east-1.amazonaws.com/python-flask:latest
   post_build:
     commands:
