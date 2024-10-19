@@ -40,8 +40,6 @@ def setup_database(db_url):
     try:
         with application.app_context():
             application.config["SQLALCHEMY_DATABASE_URI"] = db_url
-            db.init_app(application)
-            db.create_all()
             print("Database setup completed successfully.")
     except SQLAlchemyError as e:
         raise RuntimeError(f"Database setup failed: {e}")
@@ -57,13 +55,14 @@ def setup_production_environment():
     print(f"Host: {APP_HOST} Port: {APP_PORT} URL: {PRODUCTION_URL_DB}")
     setup_database(PRODUCTION_URL_DB)    
     print(f"Server started on production mode at http://{APP_HOST}:{APP_PORT}")
-    serve(application, host=APP_HOST, port=APP_PORT, threads=APP_THREADS)
+    application.run(host=APP_HOST, port=APP_PORT, debug=False)
 
+db.init_app(application)
+db.create_all()
 
 if __name__ == "__main__":
     try:
         if len(argv) > 1 and argv[1] == DEVELOP_ARGS:
-            print("Running in development mode.")
             setup_develop_environment()
         if len(argv) > 1 and argv[1] == PRODUCTION_ARGS:
             setup_production_environment()
