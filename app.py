@@ -17,20 +17,20 @@ from src.constants.system import (
 from src.blueprints.routes import blueprint
 from src.models.model import db
 
-app = Flask(__name__)
+application = Flask(__name__)
 
-app.register_blueprint(blueprint, name=BLACKLIST_BLUEPRINT)
+application.register_blueprint(blueprint, name=BLACKLIST_BLUEPRINT)
 
-app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_proto=1, x_host=1, x_prefix=1)
+application.wsgi_app = ProxyFix(application.wsgi_app, x_for=1, x_proto=1, x_host=1, x_prefix=1)
 
 
-@app.errorhandler(Exception)
+@application.errorhandler(Exception)
 def handle_unexpected_error(error):
     response = jsonify({"error": f"An unexpected error occurred: {str(error)}"})
     return response, 500
 
 
-@app.errorhandler(baseResponseError)
+@application.errorhandler(baseResponseError)
 def handle_offer_creation_error(error):
     response = jsonify({"error": error.message})
     return response, error.status_code
@@ -38,9 +38,9 @@ def handle_offer_creation_error(error):
 
 def setup_database(db_url):
     try:
-        with app.app_context():
-            app.config["SQLALCHEMY_DATABASE_URI"] = db_url
-            db.init_app(app)
+        with application.app_context():
+            application.config["SQLALCHEMY_DATABASE_URI"] = db_url
+            db.init_app(application)
             db.create_all()
             print("Database setup completed successfully.")
     except SQLAlchemyError as e:
@@ -50,14 +50,14 @@ def setup_database(db_url):
 def setup_develop_environment():
     setup_database(DEVELOP_URL_DB)
     print(f"Server started on development mode at http://{APP_HOST}:{APP_PORT}")
-    app.run(host=APP_HOST, port=APP_PORT, debug=True)
+    application.run(host=APP_HOST, port=APP_PORT, debug=True)
 
 
 def setup_production_environment():
     print(f"Host: {APP_HOST} Port: {APP_PORT} URL: {PRODUCTION_URL_DB}")
     setup_database(PRODUCTION_URL_DB)    
     print(f"Server started on production mode at http://{APP_HOST}:{APP_PORT}")
-    serve(app, host=APP_HOST, port=APP_PORT, threads=APP_THREADS)
+    serve(application, host=APP_HOST, port=APP_PORT, threads=APP_THREADS)
 
 
 if __name__ == "__main__":
