@@ -1,7 +1,5 @@
-from sqlalchemy.exc import SQLAlchemyError
 from werkzeug.middleware.proxy_fix import ProxyFix
 from flask import Flask, jsonify
-from sys import argv
 
 from src.errors.response_errors import baseResponseError
 from src.constants.urls import BLACKLIST_BLUEPRINT
@@ -31,6 +29,7 @@ def handle_offer_creation_error(error):
     return response, error.status_code
    
 with application.app_context():
+    print(f"Host: {APP_HOST} Port: {APP_PORT} URL: {PRODUCTION_URL_DB}")
     application.config["SQLALCHEMY_DATABASE_URI"] = PRODUCTION_URL_DB
     print("Database setup completed successfully.")  
     db.init_app(application)
