@@ -1,17 +1,17 @@
 from flask import Blueprint, jsonify, request
 from src.middlewares.token import validate_token
-from src.constants.urls import BLACKLIST_BLUEPRINT, BLACKLIST_BLUEPRINT_PREFIX
+from src.constants.urls import BLACKLIST_BLUEPRINT
 from src.models.dto import createBlacklistDTO
 from src.middlewares.validation import validate_request_data
 from src.commands.add_email import AddEmailToBlacklist
 from src.commands.get_email_data import getEmailFromBlacklistData
 
 blueprint = Blueprint(
-    BLACKLIST_BLUEPRINT, __name__, url_prefix=BLACKLIST_BLUEPRINT_PREFIX
+    BLACKLIST_BLUEPRINT, __name__
 )
 
 
-@blueprint.route("/", methods=["POST"])
+@blueprint.route("/blacklists", methods=["POST"])
 @validate_token
 @validate_request_data(createBlacklistDTO)
 def add_email_to_blacklist():
@@ -21,7 +21,7 @@ def add_email_to_blacklist():
     return jsonify(response["response"]), response["status_code"]
 
 
-@blueprint.route("/<string:email>", methods=["GET"])
+@blueprint.route("/blacklists/<string:email>", methods=["GET"])
 @validate_token
 def get_offer_data(email):
     command = getEmailFromBlacklistData(email=email)
