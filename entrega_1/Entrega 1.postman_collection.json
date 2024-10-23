@@ -1,0 +1,118 @@
+{
+	"info": {
+		"_postman_id": "8dba0c39-0e0e-48ab-9aca-8dfa5b069231",
+		"name": "Entrega 1",
+		"description": "Microservicio que permite a los clientes de los sistemas internos consultar si un correo electrónico se encuentra en la lista negra global de la empresa. Además, facilita la incorporación de nuevos correos electrónicos a dicha lista negra, contribuyendo a una gestión eficiente y centralizada de las direcciones prohibidas.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "30754919"
+	},
+	"item": [
+		{
+			"name": "Healthcheck",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{Token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{Host}}/health",
+					"host": [
+						"{{Host}}"
+					],
+					"path": [
+						"health"
+					]
+				},
+				"description": "Verifiación del estado de salud de la API. Devuelve un código de estado HTTP 200 junto con el string \"Ok\" si el servicio está funcionando correctamente."
+			},
+			"response": []
+		},
+		{
+			"name": "AddEmailToBlacklist",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const dynamicEmail = `user_${Math.floor(Math.random() * 10000)}@test.com`;",
+							"",
+							"const dynamicUUID = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {",
+							"    var r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);",
+							"    return v.toString(16);",
+							"});",
+							"",
+							"const blockedReason = \"user_blocked\"",
+							"",
+							"pm.environment.set(\"email\", dynamicEmail);",
+							"",
+							"pm.environment.set(\"app_uuid\", dynamicUUID);",
+							"",
+							"pm.environment.set(\"blocked_reason\", blockedReason);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{Token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"{{email}}\",\n    \"app_uuid\": \"{{app_uuid}}\",\n    \"blocked_reason\": \"{{blocked_reason}}\"\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{Host}}/blacklists",
+					"host": [
+						"{{Host}}"
+					],
+					"path": [
+						"blacklists"
+					]
+				},
+				"description": "Servicio REST permite agregar un correo electrónico a la lista negra global. Para realizar esta operación, se requiere proporcionar el correo electrónico del cliente que será agregado, el identificador único (UUID) de la aplicación cliente, y de manera opcional, la razón por la cual se está añadiendo el correo a la lista negra (con un límite de 255 caracteres). De forma interna, el microservicio registrará la dirección IP desde la cual se realiza la solicitud, así como la fecha y hora en que se envía la misma. \n\n**Posibles Respuestas de Error:**\n- **400 Bad Request**: Si el correo electrónico es inválido o el UUID de la aplicación es inválido.\n- **404 Not Found**: Si el correo ya está en la lista negra.\n- **500 Internal Server Error**: Si ocurre un error inesperado al intentar agregar el correo a la base de datos."
+			},
+			"response": []
+		},
+		{
+			"name": "getEmailFromBlacklistData",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{Token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{Host}}/blacklists/{{email}}",
+					"host": [
+						"{{Host}}"
+					],
+					"path": [
+						"blacklists",
+						"{{email}}"
+					]
+				},
+				"description": "Servicio REST que permite consultar si un correo electrónico se encuentra en la lista negra global. El microservicio recibe como parámetro el correo electrónico del cliente en la ruta y retorna un indicador que indica si dicho correo está o no en la lista negra. \n\n**Posibles Respuestas de Error:**\n- **400 Bad Request**: Si el correo electrónico es inválido o no se proporciona.\n- **500 Internal Server Error**: Si ocurre un error inesperado al consultar la base de datos."
+			},
+			"response": []
+		}
+	]
+}

@@ -9,7 +9,7 @@ DEVELOP_ENV = ".env.test"
 PRODUCTION_ENV = ".env.production"
 
 # Setup environment
-if len(argv) > 1 and argv[1] == DEVELOP_ARGS:
-    load_dotenv(DEVELOP_ENV)
-""" if len(argv) > 1 and argv[1] == PRODUCTION_ARGS:
-    load_dotenv(PRODUCTION_ENV) """
+# if len(argv) > 1 and argv[1] == DEVELOP_ARGS:
+#     load_dotenv(DEVELOP_ENV)
+# if len(argv) > 1 and argv[1] == PRODUCTION_ARGS:
+#     load_dotenv(PRODUCTION_ENV)
