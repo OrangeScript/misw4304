@@ -1,6 +1,6 @@
 import pytest
 
-from application import app
+from application import application as app
 from src.models.model import db
 
 @pytest.fixture(autouse=True, scope='session')
