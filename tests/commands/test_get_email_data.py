@@ -2,7 +2,6 @@ import pytest
 from unittest.mock import patch, MagicMock
 from sqlalchemy.exc import SQLAlchemyError
 from src.commands.get_email_data import getEmailFromBlacklistData
-from src.models.model import Banned
 
 
 @pytest.fixture
