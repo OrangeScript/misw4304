@@ -1,11 +1,13 @@
 import pytest
 
-from application import app
+from application import application as app
+from src.constants.system import DEVELOP_URL_DB
 from src.models.model import db
 
-@pytest.fixture(autouse=True, scope='session')
+
+@pytest.fixture(autouse=True, scope="session")
 def flask_app():
-    db_url = f"sqlite:///:memory:"
+    db_url = DEVELOP_URL_DB
     app.config["SQLALCHEMY_DATABASE_URI"] = db_url
     app.config["TESTING"] = True
     with app.app_context():
@@ -16,6 +18,7 @@ def flask_app():
         db.session.close()
         db.drop_all()
 
-@pytest.fixture(scope='session')
+
+@pytest.fixture(scope="session")
 def client(flask_app):
-    return flask_app.test_client()
+    return app.test_client()

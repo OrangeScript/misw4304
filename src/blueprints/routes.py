@@ -31,4 +31,4 @@ def get_offer_data(email):
 
 @blueprint.route("/health", methods=["GET"])
 def ping():
-    return "Ok", 200
+    return jsonify("Ok", 200)

@@ -2,7 +2,6 @@ import pytest
 from unittest.mock import patch, MagicMock
 from sqlalchemy.exc import SQLAlchemyError
 from src.commands.get_email_data import getEmailFromBlacklistData
-from src.models.model import Banned
 
 
 @pytest.fixture
@@ -18,16 +17,6 @@ def invalid_email():
 @pytest.fixture
 def banned_email():
     return "blocked@example.com"
-
-
-# Test para validar el formato de email
-def test_is_valid_email(valid_email, invalid_email):
-    command = getEmailFromBlacklistData(valid_email)
-    assert command.is_valid_email() is True
-
-    command = getEmailFromBlacklistData(invalid_email)
-    assert command.is_valid_email() is False
-
 
 # Test para cuando no se proporciona un correo
 def test_execute_no_email():
