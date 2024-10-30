@@ -10,12 +10,12 @@ phases:
       - echo Build started on `date`
       - echo Building the Docker image...          
       - docker build -t python-flask .
-      - docker tag python-flask:latest 233252854073.dkr.ecr.us-east-1.amazonaws.com/python-flask:latest
+      - docker tag python-flask:latest 490602924632.dkr.ecr.us-east-1.amazonaws.com/python-flask:latest
   post_build:
     commands:
       - echo Build completed on `date`
       - echo Pushing the Docker image...
-      - docker push 233252854073.dkr.ecr.us-east-1.amazonaws.com/python-flask:latest
+      - docker push 490602924632.dkr.ecr.us-east-1.amazonaws.com/python-flask:latest
 artifacts:
   files:
     - '**/*'
