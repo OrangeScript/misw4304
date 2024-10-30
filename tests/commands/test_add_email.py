@@ -46,7 +46,7 @@ class TestAddEmailToBlacklist:
             headers={},
             follow_redirects=True,
         )
-        assert response.status_code == 403
+        assert response.status_code == 401
         assert "error" in response.get_json()
 
     def test_bad_uuid_in_add_email_to_blacklist(self, client):
