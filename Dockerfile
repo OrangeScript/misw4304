@@ -6,7 +6,7 @@ RUN pip install pipenv
 
 COPY Pipfile* ./
 
-RUN pipenv install --system
+RUN pipenv install --deploy --system
 
 RUN pipenv sync
 
