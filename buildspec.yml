@@ -33,7 +33,7 @@ phases:
       - echo Pushing the Docker image...
       - docker push 490602924632.dkr.ecr.us-east-1.amazonaws.com/python-flask:latest
       - printf '[{"name":"release-3","imageUri":"490602924632.dkr.ecr.us-east-1.amazonaws.com/python-flask:latest"}]' > imagedefinitions.json
-      - printf '{"imageUri":"490602924632.dkr.ecr.us-east-1.amazonaws.com/python-flask:latest"}' > imageDetail.json
+      - printf '{"ImageUri":"490602924632.dkr.ecr.us-east-1.amazonaws.com/python-flask:latest"}' > imageDetail.json
 
 artifacts:
   files:
