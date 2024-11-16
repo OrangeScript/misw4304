@@ -22,5 +22,5 @@
     "networkMode": "awsvpc",
     "cpu": "512",
     "memory": "1024",
-    "family": "task-release-3"
+    "family": "task-release-3-final"
   }
