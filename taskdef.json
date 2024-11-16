@@ -10,7 +10,7 @@
           }
         ],
 
-        "image": "<IMAGE1_NAME>",
+        "image": "490602924632.dkr.ecr.us-east-1.amazonaws.com/python-flask:latest",
         "essential": true,
         "name": "release-3"
       }

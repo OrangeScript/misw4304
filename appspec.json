@@ -5,7 +5,7 @@
         "TargetService": {
           "Type": "AWS::ECS::Service",
           "Properties": {
-            "TaskDefinition": "<TASK_DEFINITION>",
+            "TaskDefinition": "arn:aws:ecs:us-east-1:490602924632:task-definition/task-release-3:1",
             "LoadBalancerInfo": {
               "ContainerName": "release-3",
               "ContainerPort": 9000
