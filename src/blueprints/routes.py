@@ -33,6 +33,6 @@ def get_offer_data(email):
 def ping():
     return jsonify("Ok", 200)
 
-@blueprint.route("/sustentacion", method=["GET"])
+@blueprint.route("/sustentacion", methods=["GET"])
 def sustentacion():
     return jsonify("Confirmado que todo funciona perfecto!", 200)
