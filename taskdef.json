@@ -12,7 +12,37 @@
 
         "image": "490602924632.dkr.ecr.us-east-1.amazonaws.com/python-flask:latest",
         "essential": true,
-        "name": "release-3"
+        "name": "release-3",
+        "environment": [
+          {
+            "name": "APP_PORT",
+            "value": "APP_PORT_PLACEHOLDER"
+          },
+          {
+            "name": "APP_TOKEN",
+            "value": "APP_TOKEN_PLACEHOLDER"
+          },
+          {
+            "name": "DB_HOST",
+            "value": "DB_HOST_PLACEHOLDER"
+          },
+          {
+            "name": "DB_NAME",
+            "value": "DB_NAME_PLACEHOLDER"
+          },
+          {
+            "name": "DB_PASSWORD",
+            "value": "DB_PASSWORD_PLACEHOLDER"
+          },
+          {
+            "name": "DB_PORT",
+            "value": "DB_PORT_PLACEHOLDER"
+          },
+          {
+            "name": "DB_USER",
+            "value": "DB_USER_PLACEHOLDER"
+          }
+        ]
       }
     ],
 

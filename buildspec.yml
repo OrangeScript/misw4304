@@ -27,6 +27,16 @@ phases:
       - docker build -t python-flask .
       - docker tag python-flask:latest 490602924632.dkr.ecr.us-east-1.amazonaws.com/python-flask:latest
 
+      # Update taskdef.json
+      - echo "Loading envs to task definition"
+      - sed -i "s/APP_PORT_PLACEHOLDER/$APP_PORT/g" taskdef.json
+      - sed -i "s/APP_TOKEN_PLACEHOLDER/$APP_TOKEN/g" taskdef.json
+      - sed -i "s/DB_HOST_PLACEHOLDER/$DB_HOST/g" taskdef.json
+      - sed -i "s/DB_NAME_PLACEHOLDER/$DB_NAME/g" taskdef.json
+      - sed -i "s/DB_PASSWORD_PLACEHOLDER/$DB_PASSWORD/g" taskdef.json
+      - sed -i "s/DB_PORT_PLACEHOLDER/$DB_PORT/g" taskdef.json
+      - sed -i "s/DB_USER_PLACEHOLDER/$DB_USER/g" taskdef.json
+
   post_build:
     commands:
       - echo Build completed on `date`
