@@ -71,8 +71,8 @@
           "value": "{\"nrDeployMethod\":\"downloadPage\"}"
         },
         {
-          "value": "SYSTEM_MANAGER_LICENSE_PARAMETER_NAME",
-          "name": "NRIA_LICENSE_KEY"
+          "name": "NRIA_LICENSE_KEY",
+          "value": "NRIA_LICENSE_KEY_PLACEHOLDER"          
         }
       ],
       "cpu": 256,
