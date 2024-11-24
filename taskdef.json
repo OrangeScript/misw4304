@@ -69,11 +69,9 @@
         {
           "name": "NRIA_CUSTOM_ATTRIBUTES",
           "value": "{\"nrDeployMethod\":\"downloadPage\"}"
-        }
-      ],
-      "secrets": [
+        },
         {
-          "valueFrom": "<SYSTEM_MANAGER_LICENSE_PARAMETER_NAME>",
+          "value": "SYSTEM_MANAGER_LICENSE_PARAMETER_NAME",
           "name": "NRIA_LICENSE_KEY"
         }
       ],
