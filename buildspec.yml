@@ -36,7 +36,7 @@ phases:
       - sed -i "s/DB_PASSWORD_PLACEHOLDER/$DB_PASSWORD/g" taskdef.json
       - sed -i "s/DB_PORT_PLACEHOLDER/$DB_PORT/g" taskdef.json
       - sed -i "s/DB_USER_PLACEHOLDER/$DB_USER/g" taskdef.json
-      - sed -i "s/SYSTEM_MANAGER_LICENSE_PARAMETER_NAME/$NRIA_LICENSE_KEY/g taskdef.json"
+      - sed -i "s/SYSTEM_MANAGER_LICENSE_PARAMETER_NAME/$NRIA_LICENSE_KEY/g" taskdef.json
 
   post_build:
     commands:
