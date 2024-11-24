@@ -1,56 +1,87 @@
 {
-    "executionRoleArn": "arn:aws:iam::490602924632:role/ecsTaskExecutionRole",
-    "containerDefinitions": [
-      {
-        "portMappings": [
-          {
-            "hostPort": 9000,
-            "protocol": "tcp",
-            "containerPort": 9000
-          }
-        ],
+  "executionRoleArn": "arn:aws:iam::490602924632:role/ecsTaskExecutionRole",
+  "networkMode": "awsvpc",
+  "requiresCompatibilities": ["FARGATE"],
+  "cpu": "512",
+  "memory": "1024",
+  "containerDefinitions": [
+    {
+      "portMappings": [
+        {
+          "hostPort": 9000,
+          "protocol": "tcp",
+          "containerPort": 9000
+        }
+      ],
 
-        "image": "490602924632.dkr.ecr.us-east-1.amazonaws.com/python-flask:latest",
-        "essential": true,
-        "name": "release-3",
-        "environment": [
-          {
-            "name": "APP_PORT",
-            "value": "APP_PORT_PLACEHOLDER"
-          },
-          {
-            "name": "APP_TOKEN",
-            "value": "APP_TOKEN_PLACEHOLDER"
-          },
-          {
-            "name": "DB_HOST",
-            "value": "DB_HOST_PLACEHOLDER"
-          },
-          {
-            "name": "DB_NAME",
-            "value": "DB_NAME_PLACEHOLDER"
-          },
-          {
-            "name": "DB_PASSWORD",
-            "value": "DB_PASSWORD_PLACEHOLDER"
-          },
-          {
-            "name": "DB_PORT",
-            "value": "DB_PORT_PLACEHOLDER"
-          },
-          {
-            "name": "DB_USER",
-            "value": "DB_USER_PLACEHOLDER"
-          }
-        ]
-      }
-    ],
-
-    "requiresCompatibilities": [
-      "FARGATE"
-    ],
-    "networkMode": "awsvpc",
-    "cpu": "512",
-    "memory": "1024",
-    "family": "task-release-3-final"
-  }
+      "image": "490602924632.dkr.ecr.us-east-1.amazonaws.com/python-flask:latest",
+      "essential": true,
+      "name": "release-3",
+      "environment": [
+        {
+          "name": "APP_PORT",
+          "value": "APP_PORT_PLACEHOLDER"
+        },
+        {
+          "name": "APP_TOKEN",
+          "value": "APP_TOKEN_PLACEHOLDER"
+        },
+        {
+          "name": "DB_HOST",
+          "value": "DB_HOST_PLACEHOLDER"
+        },
+        {
+          "name": "DB_NAME",
+          "value": "DB_NAME_PLACEHOLDER"
+        },
+        {
+          "name": "DB_PASSWORD",
+          "value": "DB_PASSWORD_PLACEHOLDER"
+        },
+        {
+          "name": "DB_PORT",
+          "value": "DB_PORT_PLACEHOLDER"
+        },
+        {
+          "name": "DB_USER",
+          "value": "DB_USER_PLACEHOLDER"
+        }
+      ]
+    },
+    {
+      "environment": [
+        {
+          "name": "NRIA_OVERRIDE_HOST_ROOT",
+          "value": ""
+        },
+        {
+          "name": "NRIA_IS_FORWARD_ONLY",
+          "value": "true"
+        },
+        {
+          "name": "FARGATE",
+          "value": "true"
+        },
+        {
+          "name": "NRIA_PASSTHROUGH_ENVIRONMENT",
+          "value": "ECS_CONTAINER_METADATA_URI,ECS_CONTAINER_METADATA_URI_V4,FARGATE"
+        },
+        {
+          "name": "NRIA_CUSTOM_ATTRIBUTES",
+          "value": "{\"nrDeployMethod\":\"downloadPage\"}"
+        }
+      ],
+      "secrets": [
+        {
+          "valueFrom": "<SYSTEM_MANAGER_LICENSE_PARAMETER_NAME>",
+          "name": "NRIA_LICENSE_KEY"
+        }
+      ],
+      "cpu": 256,
+      "memoryReservation": 512,
+      "image": "newrelic/nri-ecs:1.12.2",
+      "name": "newrelic-infra"
+    }
+  ],
+  "family": "task-release-3-final"
+}
