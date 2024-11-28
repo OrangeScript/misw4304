@@ -1,3 +1,5 @@
+import newrelic.agent
+newrelic.agent.initialize("newrelic.ini")
 from werkzeug.middleware.proxy_fix import ProxyFix
 from flask import Flask, jsonify
 from sqlalchemy.exc import SQLAlchemyError
@@ -13,7 +15,6 @@ from src.constants.system import (
 )
 from src.blueprints.routes import blueprint
 from src.models.model import db
-
 
 application = Flask(__name__)
 

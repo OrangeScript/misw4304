@@ -25,6 +25,7 @@ phases:
       - echo Build started on `date`
       - echo Building the Docker image...
       - sed -i "s/INGEST_PLACEHOLDER/$NRIA_LICENSE_KEY/g" Dockerfile
+      - sed -i "s/INGEST_PLACEHOLDER/$NRIA_LICENSE_KEY/g" newrelic.ini
       - docker build -t python-flask .
       - docker tag python-flask:latest 490602924632.dkr.ecr.us-east-1.amazonaws.com/python-flask:latest
 
