@@ -1,4 +1,4 @@
-FROM python:3.10.11
+FROM public.ecr.aws/docker/library/python:3.10.15-alpine
 
 ENV NEW_RELIC_APP_NAME="Entrega_4"
 ENV NEW_RELIC_LOG=stdout
